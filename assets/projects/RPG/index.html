@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemon RPG</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+ 
+</head>
+
+<body>
+<br>
+<div class="container-fluid">
+    <div class="row" id="characters">
+    <div class='col-lg-12 headingBanner'>
+    <h1>Pokemon RPG</h1>
+    <br>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row text-center" id="gameplay">
+
+    </div>
+    
+</div>
+
+<script
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+<script>
+    var chosenHero;
+    var chosenEnemy;
+    var isBattle=false;
+    var isHeroAlive=true;
+    var isEnemyAlive=true;
+    var firstBattle=true;
+
+    $(document).ready(function(){
+        var charArr = [{ 
+            name: "Geodude",
+            hp:500,
+            strength: 50,
+            type:"rock",
+            image:"assets/images/geodude.png",
+            special:["Mud Slide", 100]
+        },
+        {
+            name: "Squirtle",
+            hp:500,
+            strength: 50,
+            type:"water",
+            image:"assets/images/squirtle.png",
+            special:["WATER GUN", 100] 
+
+        },
+        { 
+            name: "Bulbasaur",
+            hp:500,
+            strength: 50,
+            type:"grass",
+            image:"assets/images/bulbasaur.png", 
+            special:["VINE WHIP", 100]
+        },
+        { 
+            name: "Pikachu",
+            hp:500,
+            strength: 50,
+            type:"electric",
+            image:"assets/images/pikachu.png" ,
+            special:["SHOCK", 100]
+        },{ 
+            name: "Charmander",
+            hp:500,
+            type:"fire",
+            strength: 50,
+            image:"assets/images/Charmander.png",
+            special:["EMBER", 100]
+        }] 
+
+        var shop = [{
+            name: "Invisible Cape",
+            hp:500,
+            strength: 50,
+            type:"thunder",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Magical Mushroom",
+            hp:500,
+            strength: 50,
+            type:"grass",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Steroids",
+            hp:500,
+            strength: 50,
+            type:"water",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Enchanted Sword",
+            hp:500,
+            strength: 50,
+            type:"rock",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Laser Gun",
+            hp:500,
+            strength: 50,
+            type:"rock",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        }]
+
+        var basicAttack = [{
+            name: "tackle",
+            type: "normal",
+            type:"thunder",
+        },
+        {
+            name: "Magical Mushroom",
+            hp:500,
+            strength: 50,
+            type:"grass",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Steroids",
+            hp:500,
+            strength: 50,
+            type:"water",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Enchanted Sword",
+            hp:500,
+            strength: 50,
+            type:"rock",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        },
+        {
+            name: "Laser Gun",
+            hp:500,
+            strength: 50,
+            type:"rock",
+            image:"assets/images/geodude.png",
+            special:["ROCK SMASH", 100]
+        }]
+    //generate characters and display into "gameplay div"  
+    function intgame(){
+        for(var i=0; i<charArr.length; i++){
+            var num = Math.floor(12/charArr.length);
+            
+            var charThing = $("<div class='myChar col-md-"+num+"'value='"+i+"'><img src='"+charArr[i].image+
+                "'style='width:175px; height:175px;'/><h2 class='text-center'>"+charArr[i].name+"</h2><p class='text-center'>hp: "+charArr[i].hp+
+                    "</p><p class='text-center'>Strength :"+charArr[i].strength+"</p><p class='text-center'>Type :"+charArr[i].type+"</p></div>")
+            $("#gameplay").append(charThing);
+            //display hero stats
+
+        }
+        alert("Please choose a character to play!")
+    }
+
+$(document).on("click", ".myChar", function(){
+    if(isHeroChosen===false){
+        chosenHero=(charArr[$(this).attr("value")])
+        isHeroChosen=true;
+        $(this).addClass("fader")
+        // console.log(chosenHero);
+        var myTimeOut = setTimeout(function(){
+            alert("Now chose an computer enemy to battle!")
+        }, 500 )
+        
+    }
+    else if(isEnemyChosen===false && chosenHero.name!== charArr[$(this).attr("value")]){
+        chosenEnemy=(charArr[$(this).attr("value")]);
+        isEnemyChosen=true;
+        $(this).addClass("fader")
+    }
+    if(isHeroChosen && isEnemyChosen){
+        //***********reset div "gameplay" and add pokemkon not chosen to "characters"
+        var battleStart = setTimeout(function(){
+            var gameHero= $( "<div class='col-md-4 float-left'><img src='"+chosenHero.image+"'style='width:350px; height:350px;'/><br><button class='button button-neutral attackBtn' style=' type='button'>ATTACK</button></div>")
+            $("#gameplay").html(gameHero)
+		
+            var gamePrompt= $("<div class='col-md-4'><h1 class='text-center' id='gameMessage'>Fight!!!</h1></div>")
+            $("#gameplay").append(gamePrompt)
+
+            var gameEnemy= $("<div class='col-md-4 float-right'><img src='"+chosenEnemy.image+"'style='width:350px; height:350px;'/></div>")
+            $("#gameplay").append(gameEnemy)
+        }, 500)
+        alert("Get ready for battle!")
+        isBattle=true;
+    }
+})
+// if(isBattle){
+//     var attackBtn = $("<button>Attack!</button>")
+//     $()
+// }
+
+
+
+            // the bottom block of code wont be able to execute because the "myChar" was created dynamically in the DOM so we have to use $(document).on("click")
+            // $("myChar").on("click", function(){
+            //     alert("Hi")
+            // })  
+
+intgame()
+    var isHeroChosen=false;
+    var isEnemyChosen=false;
+})
+//end of $(doucment).ready(function(){}
+
+</script>
+</body>
+</html>

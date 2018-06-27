@@ -1,0 +1,24 @@
+#characters{
+    padding-top: 25px;
+    align-content: center;
+}
+#gameplay{
+    padding-top: 25px;
+    margin: 25px;
+    align-content: center;
+}
+.myChar{
+    padding:20px;
+}
+h1{
+    text-align: center;
+}
+.attackBtn{
+    margin-top:25px;
+    height:50px;
+    width:100px;
+    text-align: center;
+}
+.fader{
+    opacity: 0.4;
+}
